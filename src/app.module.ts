@@ -6,9 +6,20 @@ import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
 import * as process from 'process';
 import { join } from 'path';
 import { CoffeesModule } from './coffees/coffees.module';
+import { TypeOrmModule } from '@nestjs/typeorm';
 
 @Module({
   imports: [
+    TypeOrmModule.forRoot({
+      type: 'postgres',
+      host: 'localhost',
+      port: 5435,
+      database: 'postgres',
+      username: 'postgres',
+      password: 'passer123',
+      autoLoadEntities: true,
+      synchronize: true,
+    }),
     GraphQLModule.forRoot<ApolloDriverConfig>({
       driver: ApolloDriver,
       autoSchemaFile: join(process.cwd(), 'src/schema.gql'),
