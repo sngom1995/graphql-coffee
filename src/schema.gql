@@ -2,22 +2,42 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
-"""Coffee Model"""
-type Coffee {
-  """A unique identifier"""
-  id: ID!
+interface Drink {
   name: String!
-  brand: String!
-  flavors: [String!]!
 }
 
+"""Flavor Model"""
+type Flavor {
+  id: Int!
+  name: String!
+  coffees: [Coffee!]!
+}
+
+"""Coffee Model"""
+type Coffee implements Drink {
+  name: String!
+
+  """A unique identifier"""
+  id: ID!
+  brand: String!
+  flavors: [Flavor!]!
+  createdAt: Date
+}
+
+type Tea implements Drink {
+  name: String!
+}
+
+scalar Date
+
 type Query {
+  drinks: [Drink!]!
   coffees: [Coffee!]!
   coffee(id: ID!): Coffee!
 }
 
 type Mutation {
-  createCoffe(createCoffeeInput: CreateCoffeeInput!): Coffee!
+  createCoffee(createCoffeeInput: CreateCoffeeInput!): Coffee!
   updateCoffee(id: ID!, updateCoffeeInput: UpdateCoffeeInput!): Coffee!
   deleteCoffee(id: ID!): Coffee!
 }

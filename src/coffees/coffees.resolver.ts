@@ -18,7 +18,7 @@ export class CoffeesResolver {
     return this.coffeeService.findOne(id);
   }
 
-  @Mutation(() => Coffee, { name: 'createCoffe' })
+  @Mutation(() => Coffee, { name: 'createCoffee' })
   async create(
     @Args('createCoffeeInput') createCoffeeInput: CreateCoffeeInput,
   ) {
